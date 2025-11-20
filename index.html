@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKU | MKU Basketball Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Manrope:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #e0e0e0;
+            --gold: #d4af37;
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+        }
+        .gold-text {
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            animation: kenBurns 25s infinite alternate;
+            filter: grayscale(100%) contrast(130%) brightness(0.7);
+        }
+        .hero-content {
+            z-index: 10;
+            text-align: center;
+            mix-blend-mode: difference;
+        }
+        .hero-title {
+            font-size: 8rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 2s var(--ease) forwards 0.5s;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 0.6em;
+            border-top: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            padding: 30px 0;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInUp 2s var(--ease) forwards 1.5s;
+        }
+        .section {
+            padding: 120px 8vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .section.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+        .section.reverse .text-block {
+            order: 2;
+        }
+        .section.reverse .img-wrapper {
+            order: 1;
+        }
+        .img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 700px;
+        }
+        .img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) sepia(20%);
+            transition: filter 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+        .img-wrapper:hover .img {
+            filter: grayscale(0%) sepia(0%);
+            transform: scale(1.02);
+        }
+        .text-block h2 {
+            font-size: 4rem;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--gold);
+            padding-left: 40px;
+            line-height: 1.2;
+        }
+        .text-block p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+        .values-section {
+            padding: 180px 8vw;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+        }
+        .values-title {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        .values-title h2 {
+            font-size: 3.5rem;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1px;
+            background: #333;
+        }
+        .card {
+            background: var(--bg);
+            padding: 80px 50px;
+            transition: background 0.6s var(--ease), transform 0.6s var(--ease);
+            position: relative;
+        }
+        .card:hover {
+            background: #111;
+            transform: translateY(-10px);
+        }
+        .card-number {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            display: block;
+            font-weight: 700;
+        }
+        .card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .card p {
+            font-size: 1rem;
+            color: #888;
+        }
+        .cta {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2000&auto=format&fit=crop') center/cover fixed;
+            position: relative;
+        }
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.9);
+        }
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+        .cta h2 {
+            font-size: 5rem;
+            margin-bottom: 40px;
+        }
+        .gold-btn {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 25px 80px;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 1.4rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            transition: all 0.7s var(--ease);
+            position: relative;
+            overflow: hidden;
+        }
+        .gold-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.7s var(--ease);
+        }
+        .gold-btn:hover::before {
+            left: 0;
+        }
+        .gold-btn:hover {
+            color: #000;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.6);
+        }
+        .gold-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes kenBurns {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            .section {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .section.reverse .text-block {
+                order: 1;
+            }
+            .section.reverse .img-wrapper {
+                order: 2;
+            }
+            .hero-title {
+                font-size: 4rem;
+            }
+            .text-block h2 {
+                font-size: 2.5rem;
+            }
+            .values-title h2 {
+                font-size: 2.5rem;
+            }
+            .cta h2 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <img src="images/logan-weaver-lgnwvr-XcBPc0Q_2h8-unsplash.jpg" class="hero-bg" alt="Elite Court">
+        <div class="hero-content">
+            <h1 class="hero-title"><span class="gold-text">MKU</span></h1>
+            <div class="hero-subtitle">Est. 2006 • Elite Selection</div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="text-block">
+            <h2>Beyond<br><span class="gold-text">Competition</span></h2>
+            <p>An institution of excellence, forging legacies through unyielding discipline. We cultivate the visionary, the indomitable, the architects of tomorrow's dominance.</p>
+            <p style="color: #666; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.2em;">Continue the narrative</p>
+        </div>
+        <div class="img-wrapper">
+            <img src="images/david-tran-g-dZ1h7nQ0E-unsplash.jpg" class="img" alt="Ascendant Player">
+        </div>
+    </section>
+    <section class="values-section">
+        <div class="values-title">
+            <h2>The <span class="gold-text">Doctrine</span></h2>
+        </div>
+        <div class="card-grid">
+            <div class="card">
+                <span class="card-number">01</span>
+                <h3>Excellence</h3>
+                <p>Mediocrity is the enemy. We demand perfection in every endeavor, every moment.</p>
+            </div>
+            <div class="card">
+                <span class="card-number">02</span>
+                <h3>Unity</h3>
+                <p>A brotherhood bound by honor. Strength lies in collective ascendancy.</p>
+            </div>
+            <div class="card">
+                <span class="card-number">03</span>
+                <h3>Legacy</h3>
+                <p>Not for fleeting glory, but eternal remembrance. We build monuments.</p>
+            </div>
+            <div class="card">
+                <span class="card-number">04</span>
+                <h3>Vision</h3>
+                <p>Anticipate the unseen. Master the art of strategic supremacy.</p>
+            </div>
+        </div>
+    </section>
+    <section class="section reverse">
+        <div class="img-wrapper">
+            <img src="images/chris-chow-1bKmh_ltb5k-unsplash.jpg" class="img" alt="Conclave">
+        </div>
+        <div class="text-block">
+            <h2>Enter The<br><span class="gold-text">Sanctum</span></h2>
+            <p>Admission is not granted; it is earned. We seek those with unquenchable fire, superior intellect, and unbreakable resolve. Prepare to transcend.</p>
+        </div>
+    </section>
+    <section class="cta">
+        <div class="cta-content">
+            <h2>Commence<br>The Odyssey</h2>
+            <a href="#" class="gold-btn"><span>Enlist</span></a>
+        </div>
+    </section>
+</body>
+</html>
